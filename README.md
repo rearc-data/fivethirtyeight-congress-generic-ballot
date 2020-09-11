@@ -2,7 +2,7 @@
     <img src="./rearc_logo_rgb.png" alt="Rearc Logo" title="Rearc Logo" height="52" />
 </a>
 
-How Americans View The Coronavirus Crisis | FiveThirtyEight
+The Race for Congress | FiveThirtyEight
 =========================
 
 You can subscribe to the AWS Data Exchange product utilizing the automation featured in this repository by visiting []().
@@ -26,7 +26,7 @@ This resource is presented in the CSV format for all data files and contains a R
 - Formats: CSV
 
 ## Contact Details
-- If you find any issues with or have enhancement ideas for this product, open up a GitHub [issue](https://github.com/rearc-data/fivethirtyeight-covid-19-polls/issues) and we will gladly take a look at it. Better yet, submit a pull request. Any contributions you make are greatly appreciated :heart:.
+- If you find any issues with or have enhancement ideas for this product, open up a GitHub [issue](https://github.com/rearc-data/fivethirtyeight-congress-generic-ballot/issues) and we will gladly take a look at it. Better yet, submit a pull request. Any contributions you make are greatly appreciated :heart:.
 - If you are looking for specific open datasets currently not available on ADX, please submit a request on our project board [here](https://github.com/rearc-data/covid-datasets-aws-data-exchange/projects/1).
 - If you have questions about the source data, please contact FiveThirtyEight at contact@fivethirtyeight.com.
 - If you have any other questions or feedback, send us an email at data@rearc.io.
