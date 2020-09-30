@@ -11,7 +11,7 @@ def source_dataset():
 
     source_dataset_url = 'https://projects.fivethirtyeight.com/data-webpage-data/datasets/congress-generic-ballot.zip'
     response = None
-    
+
     retries = 5
     for attempt in range(retries):
         try:
@@ -37,7 +37,6 @@ def source_dataset():
     # unzips the zipped folder
     with open(zip_location, 'wb') as f:
         f.write(response.read())
-        f.close()
 
     with ZipFile(zip_location, 'r') as z:
         z.extractall('/tmp')
@@ -51,18 +50,14 @@ def source_dataset():
     s3 = boto3.client('s3')
 
     s3_uploads = []
-    asset_list = []
-
     for r, d, f in os.walk('/tmp/' + folder_dir):
         for filename in f:
-
             obj_name = os.path.join(r, filename).split(
                 '/', 3).pop().replace(' ', '_').lower()
             file_location = os.path.join(r, filename)
             new_s3_key = data_set_name + '/dataset/' + obj_name
 
-            has_changes = md5_compare(
-                s3, s3_bucket, new_s3_key, file_location)
+            has_changes = md5_compare(s3, s3_bucket, new_s3_key, file_location)
             if has_changes:
                 s3.upload_file(file_location, s3_bucket, new_s3_key)
                 print('Uploaded: ' + filename)
@@ -70,8 +65,8 @@ def source_dataset():
                 print('No changes in: ' + filename)
 
             asset_source = {'Bucket': s3_bucket, 'Key': new_s3_key}
-            s3_uploads.append(
-                {'has_changes': has_changes, 'asset_source': asset_source})
+            s3_uploads.append({'has_changes': has_changes,
+                               'asset_source': asset_source})
 
     count_updated_data = sum(
         upload['has_changes'] == True for upload in s3_uploads)
@@ -79,8 +74,7 @@ def source_dataset():
         asset_list = list(
             map(lambda upload: upload['asset_source'], s3_uploads))
         if len(asset_list) == 0:
-            raise Exception(
-                'Something went wrong when uploading files to s3')
-    # asset_list is returned to be used in lamdba_handler function
-    # if it is empty, lambda_handler will not republish
-    return asset_list
+            raise Exception('Something went wrong when uploading files to s3')
+        return asset_list
+    else:
+        return []
